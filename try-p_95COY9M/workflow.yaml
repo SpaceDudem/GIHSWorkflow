@@ -1,0 +1,23 @@
+schema: workflow/2022.04
+name: try
+settings:
+  error_notification: true
+triggers:
+- id: hi_6LHYV5L
+steps:
+- namespace: code
+  runtime: golang
+  uses: "./code/entry.go"
+- namespace: return_http_response
+  runtime: nodejs18.x
+  uses: http-return-http-response@0.0.3
+  props:
+    resStatusCode: 200
+    resHeaders: {}
+    resBody: |
+      $send.httpResponse({
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ "kennelCardsUrl": "YOUR_URL_HERE" })
+      });
+
