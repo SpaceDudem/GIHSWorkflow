@@ -12,7 +12,7 @@ steps:
     _csrfToken: "{{steps.trigger.event.body._csrfToken}}"
     animal_ids: "{{steps.trigger.event.body.internal_id}}"
     apiKey: '{{steps.trigger.event.body["X-Api-Key"]}}'
-    cookie: "{{steps.trigger.event.body.Cookie}}"
+    cookie: "}{{steps.trigger.event.body.Cookie}}"
 - namespace: code_1
   disabled: true
   runtime: golang
