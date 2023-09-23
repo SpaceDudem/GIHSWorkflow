@@ -10,13 +10,9 @@ steps:
   uses: "./code/entry.js"
   props:
     _csrfToken: "{{steps.trigger.event.body._csrfToken}}"
-    animal_ids: "{{steps.trigger.event.body.animal_ids}}"
-    apiKey: '{{steps.trigger.event.headers["x-api-key"]}}'
-    cookie: __hssrc=1; __hstc=148675048.12b3b651a03d87361bbfbe1281c22cfe.1694806288679.1694806288679.1694806288679.1;
-      __zlcmid=1Hlm6ro5ZU0CLJ9; _fbp=fb.1.1694806288148.107900607; _ga=GA1.2.1824892527.1692831979;
-      _ga_4L6NCQ6CSL=GS1.1.1694806234.7.1.1694806285.0.0.0; _gid=GA1.2.2093128975.1694696472;
-      _hjSessionUser_2611551=eyJpZCI6IjJlNTJjMjI4LThiMjEtNTA3Yy1iNzliLTgyMGIyNDczMmNlMSIsImNyZWF0ZWQiOjE2OTQyNzU5NzY0NDMsImV4aXN0aW5nIjp0cnVlfQ==;
-      hubspotutk=12b3b651a03d87361bbfbe1281c22cfe; SESSb4bb675ba22f5c3c57e8f975aa787735=221HQ4Ky2Jzigf2qTN2s1tvjAanQ10td02flojtQp34
+    animal_ids: "{{steps.trigger.event.body.internal_id}}"
+    apiKey: '{{steps.trigger.event.body["X-Api-Key"]}}'
+    cookie: "{{steps.trigger.event.body.Cookie}}"
 - namespace: code_1
   disabled: true
   runtime: golang
@@ -27,10 +23,5 @@ steps:
   props:
     resStatusCode: 200
     resHeaders: {}
-    resBody: |
-      $send.httpResponse({
-        status: 200,
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ "kennelCardsUrl": "{{steps.code.$return_value.kennelCardUrl.kennelCardsUrl}}"
-      });
+    resBody: "{{steps.code.$return_value.kennelCardUrl.kennelCardsUrl}}\n"
 
